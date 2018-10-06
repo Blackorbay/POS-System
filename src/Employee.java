@@ -50,7 +50,7 @@ public class Employee {
 		this.username = usernameInput;
 		
 		//read the employee from the database 
-		
+		this.checkUserInFileandUpdate();
 		
 		//if it does not exist populate everything to null
 		if(this.exists == false)
@@ -63,7 +63,15 @@ public class Employee {
 	
 	public boolean checkPassword(String password) 
 	{
-		return false;
+		if(password.equals(this.passwordHash))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
 	}
 	
 	public Boolean setTitle(String newTitle)
@@ -73,6 +81,7 @@ public class Employee {
 	}
 	
 	public Boolean changePassword(String newPassword) {
+		this.passwordHash = newPassword;
 		return true;
 	}
 	
@@ -109,6 +118,7 @@ public class Employee {
             	 this.passwordHash = tempEmployee[1];
             	 this.Title = tempEmployee[2];
             	 this.accessLevel = Integer.parseInt(tempEmployee[3]);
+            	 this.exists = true;
             	 br.close();
             	 return true;
              }
@@ -160,9 +170,9 @@ public class Employee {
         
 	}
 	
-	private String createPasswordHash(String passowrd)
+	private String createPasswordHash(String password)
 	{
-		return "password";
+		return password;
 	}
 	
 	//TODO: for testing and debugging purposes only remove once done with project
