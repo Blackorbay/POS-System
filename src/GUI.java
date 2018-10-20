@@ -7,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 public class GUI extends JFrame {
 
@@ -35,17 +37,39 @@ public class GUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(230, 230, 250));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener() {
+		JButton btnSales = new JButton("SALES");
+		btnSales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//this is perfromed when the login button is hit
+				// destroy current gui
+				// create a new order 'Order O = new Order();'
+				// open up new gui
 			}
 		});
-		contentPane.add(btnLogin, BorderLayout.SOUTH);
+		btnSales.setBackground(new Color(211, 211, 211));
+		btnSales.setFont(new Font("Segoe UI Symbol", Font.BOLD, 22));
+		btnSales.setBounds(135, 46, 166, 46);
+		contentPane.add(btnSales);
+		
+		JButton btnReturns = new JButton("RETURNS");
+		btnReturns.setBackground(new Color(211, 211, 211));
+		btnReturns.setFont(new Font("Segoe UI Symbol", Font.BOLD, 22));
+		btnReturns.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnReturns.setBounds(135, 103, 166, 46);
+		contentPane.add(btnReturns);
+		
+		JButton btnInventory = new JButton("INVENTORY");
+		btnInventory.setBackground(new Color(211, 211, 211));
+		btnInventory.setFont(new Font("Segoe UI Symbol", Font.BOLD, 22));
+		btnInventory.setBounds(135, 160, 166, 46);
+		contentPane.add(btnInventory);
 	}
 
 }
