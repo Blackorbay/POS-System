@@ -7,7 +7,7 @@ import java.io.File;
 
 public class Employee {
 	
-	private String username;
+	private String username; 
 	private String passwordHash;
 	private String Title;
 	private int accessLevel;
