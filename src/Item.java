@@ -1,36 +1,73 @@
 
 public class Item {
-private String name;
-private float cost;
-private String id;
-private int count;
-public float getCost() {
-	return cost;
-}
+  private String name = "default";
+  private float cost = 0.00f;
+  private String id = "not assigned";
+  private int count = 0;
+  private String supplier = "default";
+  private static int counter = 0;
 
-public void setCost(float cost) {
-	this.cost = cost;
-}
+  Item(String name, float cost, int quant, String supplier){
+    this.name = name;
+    this.cost = cost;
+    this.count = quant;  
+    this.supplier = supplier;
+    this.id = setID();
+    counter++;
+  }
+  
+  
+  Item(String id, int count)
+  {
+    
+    this.id = id;
+    this.count = count;
+    
+  }
 
-public int getCount() {
-	return count;
-}
+  public float getCost() {
+    return cost;
+  }
 
-public void setCount(int count) {
-	this.count = count;
-}
+  public void setCost(float cost) {
+    this.cost = cost;
+  }
 
-public String getId() {
-	return id;
-}
+  public int getCount() {
+    return count;
+  }
 
-String getName()
-{
-	return name;
-}
+  public String getSup()
+  {
+    return this.supplier;
+  }
 
-Item(String name, float cost, String id, int count)
-{
-	
-}
+  public void setCount(int count) {
+    this.count = count;
+  }
+
+  public void modifyCount(int quant){ //if adding use + modifier, if selling use - modifier.
+    if ((this.count + quant) < 0) //could also make 2 different methods for adding and subtracting
+      System.out.println("Not enough quantity!");
+      else 
+         this.count +=quant;
+  }
+
+  public String getID() {
+    return id;
+  }
+
+  String getName()
+  {
+    return name;
+  }
+
+  private String setID() //some unique id that can be used for each product. Right now uses random, could incorporate supplier and other info
+  {
+    
+    id = (Integer.toString((int)this.supplier.charAt(0)) + Integer.toString((int)this.supplier.charAt(1)) + Integer.toString((int)this.supplier.charAt(2)) + Integer.toString((int)this.name.charAt(0))+ Integer.toString((int)this.name.charAt(1)) + Integer.toString((int)this.name.charAt(2)) + Integer.toString(counter));
+ 
+    return id;
+  }
+
 }
