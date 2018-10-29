@@ -246,9 +246,4 @@ public class InventoryManager
   
 }
 
-/*
- String tempFile = "temp.txt";
- File oldFile = new File(filepath);	
- File newFile = new File(tempFile);
- temp
- * */
+
