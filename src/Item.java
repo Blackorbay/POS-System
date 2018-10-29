@@ -1,4 +1,3 @@
-
 public class Item {
   private String name = "default";
   private float cost = 0.00f;
@@ -6,6 +5,8 @@ public class Item {
   private int count = 0;
   private String supplier = "default";
   private static int counter = 0;
+  private int threshold = 1;
+  
 
   Item(String name, float cost, int quant, String supplier){
     this.name = name;
@@ -15,7 +16,15 @@ public class Item {
     this.id = setID();
     counter++;
   }
-  
+  Item(String name, float cost, int quant, int threshold, String supplier){
+	    this.name = name;
+	    this.cost = cost;
+	    this.count = quant;  
+	    this.threshold = threshold;
+	    this.supplier = supplier;
+	    this.id = setID();
+	    counter++;
+	  }
   
   Item(String id, int count)
   {
@@ -69,5 +78,19 @@ public class Item {
  
     return id;
   }
-
+  
+  public int getThreshold()
+  {
+	  return this.threshold;
+  }
+  
+  public void setThreshold(int threshold)
+  {
+	  this.threshold = threshold;
+  }
+  
+  public String toString()
+  {
+	  return (this.name + "," + this.id + "," + this.supplier + "," + Integer.toString(this.count) + "," + Integer.toString(this.threshold) + "," + Float.toString(this.cost));
+  }
 }
