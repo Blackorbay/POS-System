@@ -21,13 +21,14 @@ public class InventoryManager
 
 	InventoryManager()
 	{
-		//empty constructor
+		File inventory = new File(filename);
 	}
   
   //specify filename for different inventories.
   InventoryManager(String filename)
   {
     this.filename = filename;
+    File inventory = new File(filename);
   }
 	
 	private boolean checkItemInFile(Item testItem)
@@ -146,17 +147,20 @@ public class InventoryManager
     
 	  BufferedReader br = null;
 		String tempFile = "C:\\Users\\Wingman\\eclipse-workspace\\POS System\\bin\\tempfile.txt";
-    if (checkItemInFile(newItem))
+    File newFile = new File(tempFile);
+    File oldFile = new File(filename);
+    
+		if (checkItemInFile(newItem))
     {
       try {
       	
       	String line = "";
           String cvsSplitBy = ",";
           br = new BufferedReader(new FileReader(filename));
+          FileWriter  pw = new FileWriter (tempFile,false);
       	while ((line = br.readLine()) != null) {
-      	String[] tempInventory = line.split(cvsSplitBy);
+      		String[] tempInventory = line.split(cvsSplitBy);
       	
-      	FileWriter  pw = new FileWriter (tempFile,true);
       	
 	        StringBuilder sb = new StringBuilder();
 	        if(!newItem.getID().equals(tempInventory[1])) {
@@ -172,10 +176,30 @@ public class InventoryManager
 	        sb.append('\n');
 
 	        pw.append(sb.toString());
-          pw.flush();
-          pw.close();
+
 	        }
+
       	}
+        pw.flush();
+        pw.close();
+        
+        br = new BufferedReader(new FileReader(tempFile));
+        pw = new FileWriter (filename,false); 
+        
+        while ((line = br.readLine()) != null) {
+
+            // use comma as separator
+            String[] tempInventory = line.split(cvsSplitBy);
+            StringBuilder sb = new StringBuilder();
+           for (int i = 0; i < 5; i++)
+             sb.append(tempInventory[i]+ ",");
+          sb.append('\n');
+          pw.append(sb.toString());
+
+         }
+        pw.flush();
+        pw.close();
+      	
 		  } 
     catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -193,15 +217,27 @@ public class InventoryManager
 	public static void main(String[] args) 
 	{
  	InventoryManager inventory = new InventoryManager();
-    Item testItemOne = new Item("One",11.11f, 12, "CostCo");
-    Item testItemTwo = new Item("Two",11.11f, 12, "CostCo");
-    Item testItemThree = new Item("Three",11.11f, 12, "CostCo");
+//    Item testItemOne = new Item("One",11.11f, 12, "Costco");
+//    Item testItemTwo = new Item("Two",11.11f, 12, "Walmart");
+//    Item testItemThree = new Item("Three",11.11f, 12, "McDonalds");
+//    Item testItemFour = new Item("Four",11.11f, 12, "Target");
+//    Item testItemFive = new Item("Five",11.11f, 12, "Cubs");
+//    Item testItemSix = new Item("Six",11.11f, 12, "Lunds");
+    
 //    inventory.addNewToInventory(testItemOne);
 //    inventory.addNewToInventory(testItemTwo);
 //    inventory.addNewToInventory(testItemThree);
+//    inventory.addNewToInventory(testItemFour);
+//    inventory.addNewToInventory(testItemFive);
+//    inventory.addNewToInventory(testItemSix);
+//    
+//    inventory.displayInventoryReport();
+ 	
+ 	Item updateOne = new Item("67111115791101010", 2);
+ 	Item updateTwo = new Item("779968841041142", 2);
+    inventory.updateInventory(updateOne, 9999);
+    inventory.updateInventory(updateTwo, 9999);
     inventory.displayInventoryReport();
- 	inventory.updateInventory(testItemThree, 9999);
-      inventory.displayInventoryReport();
   }
 	
 	
@@ -210,4 +246,9 @@ public class InventoryManager
   
 }
 
-
+/*
+ String tempFile = "temp.txt";
+ File oldFile = new File(filepath);	
+ File newFile = new File(tempFile);
+ temp
+ * */
