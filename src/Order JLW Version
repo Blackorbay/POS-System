@@ -1,0 +1,114 @@
+import java.util.ArrayList;
+import java.util.Calendar;
+
+public class Order {
+
+	private ArrayList<Item> incart = null;
+	private float totalCost = 0;
+	private int totalItems = 0;
+	private long orderNumber = 0;
+	
+	
+	Order(){
+		orderNumber = generateOrderNumber();
+		incart = new ArrayList<Item>(1);
+	}
+	
+	private long generateOrderNumber()
+	{
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		year = year - ((year / 1000) * 1000);  
+		String month = Integer.toString(1 + Calendar.getInstance().get(Calendar.MONTH));
+		String day = Integer.toString(Calendar.getInstance().get(Calendar.DATE));
+		//System.out.println(year);
+		String hour = Integer.toString(Calendar.getInstance().get(Calendar.HOUR));
+		String min = Integer.toString(Calendar.getInstance().get(Calendar.MINUTE));
+		String sec = Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
+			
+		long number = Long.parseLong((Integer.toString(year) + month + day + hour + min + sec));
+		
+		return number;
+	}
+	
+	public long getOrderNumber()
+	{
+		return orderNumber;
+	}
+	
+	//float getTotalCost
+	//int getNumberofItems
+	//boolean addItem(String ID, int number)
+	//removeItem(String ID, int number)
+	//completeSale()
+	//long getOrderNumber
+	//Boolean checkOrderNumber
+	
+	public boolean addToOrder(String itemID, int quant)
+	{
+		Item tempItem = new Item(itemID, quant);
+		float tempCost = 0.0f;
+		InventoryManager testInventory = new InventoryManager();
+		if(testInventory.checkItemInFile(tempItem))
+		{
+			for(int i = 0; i < testInventory.getInventory().size(); i++)
+				if(testInventory.getInventory().get(i).getID().equals(itemID))
+					tempCost = testInventory.getInventory().get(i).getCost();
+			tempItem = new Item(itemID, quant, tempCost);
+			incart.add(tempItem);
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	public boolean removeItem(String itemID, int quant)
+	{
+		quant = -(quant);
+		Item tempItem = new Item(itemID, quant);
+		
+		for (int i = 0; i < incart.size(); i++)
+		{
+			if (incart.get(i).getID().equals(itemID))
+				incart.get(i).modifyCount(quant);
+		}
+		return true;
+	}
+	
+	public int getNumberofItems()
+	{
+		
+		for (int i = 0; i < incart.size(); i++)
+			totalItems += incart.get(i).getCount();
+		
+		return totalItems;
+	}
+	
+	public boolean completeSale()
+	{
+		InventoryManager tempInventory = new InventoryManager();
+		float orderCost = 0;
+		
+		for(int i = 0; i < incart.size(); i++)
+			{
+			orderCost += (incart.get(i).getCost() * incart.get(i).getCount());
+			tempInventory.updateInventory(incart.get(i), -incart.get(i).getCount());
+			}
+		System.out.println(orderCost);
+		return true;
+	}
+	
+		public static void main(String[] args)
+		{
+			InventoryManager inventory = new InventoryManager();
+			inventory.displayInventoryReport();
+			Order newOrder = new Order();
+			System.out.println(newOrder.addToOrder("8797108841191111", 2));
+		
+			System.out.println(newOrder.completeSale());
+			inventory.displayInventoryReport();
+			
+			
+		}
+
+
+}
