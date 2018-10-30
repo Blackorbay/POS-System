@@ -38,7 +38,7 @@ class EmployeeTest {
 	
 	@Test
 	void checkGetSetFunctions()
-	{
+	{ 
 		Employee bobdummy = new Employee("bob", 7,"bobsusername","Title1","password");
 		Employee bob = new Employee("bobsusername");
 		assertEquals (bob.getaccesslevel(), 7, "Get access level didnt work");

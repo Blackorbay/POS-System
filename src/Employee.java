@@ -7,7 +7,7 @@ import java.io.File;
 
 public class Employee {
 	
-	private String username; 
+	private String username; // This is the 
 	private String passwordHash;
 	private String Title;
 	private int accessLevel;
@@ -34,6 +34,7 @@ public class Employee {
 			this.username = username;
 			this.passwordHash = this.createPasswordHash(password);
 			this.Title = title;
+			this.exists = true;
 			this.writeUsertoFile();
 		}
 		
@@ -178,8 +179,7 @@ public class Employee {
 	//TODO: for testing and debugging purposes only remove once done with project
 	public static void main(String[] args) 
 	{
-		Employee bobdummy = new Employee("bob", 7 ,"bobsusername","Title1","mypassword");
-		Employee bob2 = new Employee("bob2", 7 ,"bobsusername2","Title12","mypassword2");
+
 	}
 	
 	

@@ -37,4 +37,14 @@ public boolean checkOrderhas(int hash)
 {
 	return true;
 }
+
+public float getTotalCost()
+{
+	return 0.0f;
+}
+
+public void voidSale()
+{
+	
+}
 }

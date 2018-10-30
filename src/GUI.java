@@ -4,15 +4,23 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
-import java.awt.Color;
+import javax.swing.JTextPane;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JLabel;
+import java.awt.CardLayout;
 
 public class GUI extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField txtUsername;
+	private JPasswordField pwdPassword;
+	private JLabel lblPassword;
+	private JLabel lblUsername;
 
 	/**
 	 * Launch the application.
@@ -23,6 +31,8 @@ public class GUI extends JFrame {
 				try {
 					GUI frame = new GUI();
 					frame.setVisible(true);
+					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,39 +47,42 @@ public class GUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(230, 230, 250));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(100, 100, 100, 100));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new CardLayout(0, 0));
 		
-		JButton btnSales = new JButton("SALES");
-		btnSales.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// destroy current gui
-				// create a new order 'Order O = new Order();'
-				// open up new gui
+		lblUsername = new JLabel("Username:");
+		contentPane.add(lblUsername, "name_989977588628496");
+		
+		txtUsername = new JTextField();
+		contentPane.add(txtUsername, "name_989977597256729");
+		txtUsername.setColumns(10);
+		
+		JButton btnLogine = new JButton("Login");
+		btnLogine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("UserName " + txtUsername.getText() );
+				System.out.println("Password " + pwdPassword.getText() );
+				
+				Employee newE = new Employee(txtUsername.getText());
+				Boolean pwdcheck = newE.checkPassword(pwdPassword.getText());
+				System.out.println("Password check is " + pwdcheck );
+				if(pwdcheck)
+				{
+					
+				}
+				
 			}
 		});
-		btnSales.setBackground(new Color(211, 211, 211));
-		btnSales.setFont(new Font("Segoe UI Symbol", Font.BOLD, 22));
-		btnSales.setBounds(135, 46, 166, 46);
-		contentPane.add(btnSales);
 		
-		JButton btnReturns = new JButton("RETURNS");
-		btnReturns.setBackground(new Color(211, 211, 211));
-		btnReturns.setFont(new Font("Segoe UI Symbol", Font.BOLD, 22));
-		btnReturns.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnReturns.setBounds(135, 103, 166, 46);
-		contentPane.add(btnReturns);
+		lblPassword = new JLabel("Password:");
+		contentPane.add(lblPassword, "name_989977609670974");
 		
-		JButton btnInventory = new JButton("INVENTORY");
-		btnInventory.setBackground(new Color(211, 211, 211));
-		btnInventory.setFont(new Font("Segoe UI Symbol", Font.BOLD, 22));
-		btnInventory.setBounds(135, 160, 166, 46);
-		contentPane.add(btnInventory);
+		pwdPassword = new JPasswordField();
+		contentPane.add(pwdPassword, "name_989977619294232");
+		contentPane.add(btnLogine, "name_989977629030487");
 	}
+	
+	
 
 }
