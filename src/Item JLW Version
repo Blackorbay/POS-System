@@ -35,11 +35,12 @@ public class Item {
 	    counter++;
 	  }
   
-  Item(String id, int count, float cost)
+  Item(String name, String id, int count, float cost)
   {
     this.id = id;
     this.count = count;
     this.cost = cost;
+    this.name = name;
   }
   
   Item(String id, int count)
@@ -69,11 +70,17 @@ public class Item {
     this.count = count;
   }
 
-  public void modifyCount(int quant){ //if adding use + modifier, if selling use - modifier.
-    if ((this.count + quant) < 0) //could also make 2 different methods for adding and subtracting
+  public boolean modifyCount(int quant){ //if adding use + modifier, if selling use - modifier.
+    if ((this.count + quant) < 0)
+    {//could also make 2 different methods for adding and subtracting
       System.out.println("Not enough quantity!");
+      return false;
+    }
       else 
-         this.count +=quant;
+      {
+        this.count +=quant;
+        return true;
+      }
   }
 
   public String getID() {
@@ -106,5 +113,10 @@ public class Item {
   public String toString()
   {
 	  return (this.name + "," + this.id + "," + this.supplier + "," + Integer.toString(this.count) + "," + Integer.toString(this.threshold) + "," + Float.toString(this.cost));
+  }
+  
+  public String toReceipt()
+  {
+    return (this.name + "," + this.id + "," + Integer.toString(this.count) + "," + Float.toString(this.cost));
   }
 }
