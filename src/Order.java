@@ -1,13 +1,20 @@
 
-public class Order {
-private int orderNumber;
-private Item[] incart;
+public class Order 
+{
+private long orderNumber;
+private Item[] incart = null;
+private int totalItems = 0;
+private float toalCost = 0;
 
 public int getOrderNumber() {
 	return orderNumber;
 }
 Order()
-{}
+{
+
+
+}
+
 int getNumberOfItems()
 {
 	return 0;
