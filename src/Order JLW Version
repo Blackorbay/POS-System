@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+iimport java.util.ArrayList;
 import java.util.Calendar;
 
 public class Order {
@@ -47,18 +47,24 @@ public class Order {
 	{
 		Item tempItem = new Item(itemID, quant);
 		float tempCost = 0.0f;
+    String tempName = "";
 		InventoryManager testInventory = new InventoryManager();
-		if(testInventory.checkItemInFile(tempItem))
+    boolean added = false;
+		if(testInventory.checkItemInFile(tempItem) && testInventory.updateInventory(tempItem, -quant))
 		{
 			for(int i = 0; i < testInventory.getInventory().size(); i++)
+      {
 				if(testInventory.getInventory().get(i).getID().equals(itemID))
-					tempCost = testInventory.getInventory().get(i).getCost();
-			tempItem = new Item(itemID, quant, tempCost);
-			incart.add(tempItem);
-			return true;
+        {
+					  tempCost = testInventory.getInventory().get(i).getCost();
+            tempName = testInventory.getInventory().get(i).getName();
+            tempItem = new Item(tempName, itemID, quant, tempCost);
+			      incart.add(tempItem);
+			      added = true;
+        }
+      }
 		}
-		else
-			return false;
+		return added;
 	}
 	
 	public boolean removeItem(String itemID, int quant)
@@ -69,7 +75,9 @@ public class Order {
 		for (int i = 0; i < incart.size(); i++)
 		{
 			if (incart.get(i).getID().equals(itemID))
+      {
 				incart.get(i).modifyCount(quant);
+      }
 		}
 		return true;
 	}
@@ -94,8 +102,32 @@ public class Order {
 			tempInventory.updateInventory(incart.get(i), -incart.get(i).getCount());
 			}
 		System.out.println(orderCost);
+    totalCost = orderCost;
 		return true;
 	}
+  
+  public float getCost()
+  {
+    return totalCost;
+  }
+  
+  public String toString()
+  {
+    String orderList = orderNumber + ":";
+    for (int i = 0; i < incart.size(); i++)
+          orderList += (incart.get(i).toReceipt() + ";");
+    
+    return orderList;
+  }
+  
+    public String toReceipt()
+  {
+    String orderList = orderNumber + ":" + "\n";
+    for (int i = 0; i < incart.size(); i++)
+          orderList += (incart.get(i).toReceipt() + ";" + "\n");
+    
+    return orderList;
+  }
 	
 		public static void main(String[] args)
 		{
@@ -103,9 +135,10 @@ public class Order {
 			inventory.displayInventoryReport();
 			Order newOrder = new Order();
 			System.out.println(newOrder.addToOrder("8797108841191111", 2));
+      System.out.println(newOrder.addToOrder("76117110831051205", 2));
 		
 			System.out.println(newOrder.completeSale());
-			inventory.displayInventoryReport();
+			System.out.println(newOrder.toString());
 			
 			
 		}
