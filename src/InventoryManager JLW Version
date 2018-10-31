@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -46,6 +47,22 @@ public class InventoryManager
 		}
 		return contains;
 	}
+  
+  public int checkInStock(Item testItem)
+  {
+    int instock = 0;
+		String testItemID = testItem.getID();
+		for(int i = 0; i < itemInventory.size(); i++)
+		{
+			if(itemInventory.get(i).getID().equals(testItemID))
+			{
+				instock = itemInventory.get(i).getCount();
+				break;
+			}
+		}
+		return instock;
+	}
+  
   
   public void displayInventoryReport()
   {
@@ -166,28 +183,33 @@ public class InventoryManager
 	public static void main(String[] args) 
 	{
  	InventoryManager inventory = new InventoryManager();
-//    Item testItemOne = new Item("One",11.11f, 12,5, "Costco");
-//    Item testItemTwo = new Item("Two",11.11f, 12,3, "Walmart");
-//    Item testItemThree = new Item("Three",11.11f, 12, "McDonalds");
-//    Item testItemFour = new Item("Four",11.11f, 12, "Target");
-//    Item testItemFive = new Item("Five",11.11f, 12, "Cubs");
-//    Item testItemSix = new Item("Six",11.11f, 12, "Lunds");
-   
-//    inventory.addNewToInventory(testItemOne);
-//    inventory.addNewToInventory(testItemTwo);
-//    inventory.addNewToInventory(testItemThree);
-//    inventory.addNewToInventory(testItemFour);
-//    inventory.addNewToInventory(testItemFive);
-//    inventory.addNewToInventory(testItemSix);
+    //String name, float cost, int quant, int threshold, String supplier
     
-    inventory.displayInventoryReport();
- 	System.out.println(inventory.nightlyRun());
- 	Item updateOne = new Item("67111115791101010", 2);
- 	Item updateTwo = new Item("779968841041142", 2);
-    inventory.updateInventory(updateOne, -10);
-    inventory.updateInventory(updateTwo, -6);
-    System.out.println(inventory.nightlyRun());
-    inventory.displayInventoryReport();
+    //ADD Items to Inventory from BLANK:
+//     Item tempItem = null;
+//         inventory.addNewToInventory(tempItem = new Item("Milk", 2.59f, 100, 20, "Cubs"));
+//         inventory.addNewToInventory(tempItem = new Item("Eggs", 1.99f, 100, 10, "Lunds"));
+//         inventory.addNewToInventory(tempItem = new Item("Bread", 1.50f, 200, 50, "Fresh Thyme"));
+//         inventory.addNewToInventory(tempItem = new Item("Butter", 0.79f, 100, 20, "Costco"));
+//         inventory.addNewToInventory(tempItem = new Item("Water (Bottled)", 2.59f, 1000, 200, "Sam's Club"));
+//         inventory.addNewToInventory(tempItem = new Item("Chicken", 5.59f, 20, 5, "Cubs"));
+//         inventory.addNewToInventory(tempItem = new Item("Hamburger", 2.59f, 100, 20, "Cubs"));
+//         inventory.addNewToInventory(tempItem = new Item("Cereal", 3.59f, 1000, 200, "Costco"));
+//         inventory.addNewToInventory(tempItem = new Item("Buns (Hamburger)", 2.59f, 100, 20, "Costco"));
+//         inventory.addNewToInventory(tempItem = new Item("Soda", 4.59f, 1000, 200, "Sam's Club"));
+//         inventory.addNewToInventory(tempItem = new Item("Candy", 0.59f, 1000, 200, "Lunds"));
+    
+    
+// ADD items to existing inventory:
+//     Item tempItem = null;
+//     inventory.displayInventoryReport();
+//     inventory.addNewToInventory(tempItem = new Item("Powerade", 1.59f, 1000, 200, "Costco"));
+    
+//     inventory.displayInventoryReport();
+
+
+    
+
   }	 	
 	
 
