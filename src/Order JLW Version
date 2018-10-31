@@ -1,4 +1,4 @@
-iimport java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Order {
@@ -50,7 +50,7 @@ public class Order {
     String tempName = "";
 		InventoryManager testInventory = new InventoryManager();
     boolean added = false;
-		if(testInventory.checkItemInFile(tempItem) && testInventory.updateInventory(tempItem, -quant))
+		if(testInventory.checkInStock(tempItem) > quant)
 		{
 			for(int i = 0; i < testInventory.getInventory().size(); i++)
       {
