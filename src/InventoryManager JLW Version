@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,7 +15,7 @@ public class InventoryManager
 	private int itemQuant;
 	private Item tempItem; 
 	private boolean exists;
-	private String filename = "C:\\Users\\Wingman\\eclipse-workspace\\POS System\\bin\\InventoryItems.txt";
+	private String filename = "InventoryItems.txt";
 	private ArrayList<Item> itemInventory = new ArrayList<Item>(1);
 
 	InventoryManager()
@@ -68,25 +67,30 @@ public class InventoryManager
 		}
 	}
   
-  public void updateInventory(Item newItem, int changeQuant)
+  public boolean updateInventory(Item newItem, int changeQuant)
   {
+    
+    boolean added = false;
+    
 	  if (itemInventory.size() == 0)
-		  populateInventory();
+		    populateInventory();
 	
 	 for (int i = 0; i < itemInventory.size(); i++)
 	 {
 		 if ( newItem.getID().equals(itemInventory.get(i).getID()))
 		 {
-			 itemInventory.get(i).modifyCount(changeQuant);
+			 added = itemInventory.get(i).modifyCount(changeQuant);
 			 break;
 		 }	
 	 }
 	 writeInventoryToFile();
+   return added;
   }
+  
   
 	public void populateInventory()
 	{
-		Item tempItem; 
+		  Item tempItem; 
 	    String line = "";
 	    String cvsSplitBy = ",";
 	    BufferedReader br = null;
@@ -168,7 +172,7 @@ public class InventoryManager
 //    Item testItemFour = new Item("Four",11.11f, 12, "Target");
 //    Item testItemFive = new Item("Five",11.11f, 12, "Cubs");
 //    Item testItemSix = new Item("Six",11.11f, 12, "Lunds");
-//    
+   
 //    inventory.addNewToInventory(testItemOne);
 //    inventory.addNewToInventory(testItemTwo);
 //    inventory.addNewToInventory(testItemThree);
@@ -180,8 +184,9 @@ public class InventoryManager
  	System.out.println(inventory.nightlyRun());
  	Item updateOne = new Item("67111115791101010", 2);
  	Item updateTwo = new Item("779968841041142", 2);
-    inventory.updateInventory(updateOne, -9999);
-    inventory.updateInventory(updateTwo, -9999);
+    inventory.updateInventory(updateOne, -10);
+    inventory.updateInventory(updateTwo, -6);
+    System.out.println(inventory.nightlyRun());
     inventory.displayInventoryReport();
   }	 	
 	
