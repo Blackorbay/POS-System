@@ -1,5 +1,6 @@
 
 
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -100,14 +101,18 @@ public class Register {
   
   public static void main(String [] args)
   {
+    //Sell Items: 
     Register testRegister = new Register();
     testRegister.startOrder();
-
-    testRegister.addItem("6711798701051184", 5);
-    testRegister.addItem("8797108841191111", 5);
-    testRegister.addItem("76117110831051205", 1);
+    testRegister.addItem("671111158011111922", 5); //candy should have 995
+    testRegister.addItem("76117110679711010", 50); 
+    testRegister.addItem("6711798771051080", 5); //milk should have 95
+    //testRegister.removeItem("76117110679711010", 45);//poweraid should have 995
     testRegister.closeOrder();
-    System.out.println(testRegister.returnCash(1000f));
+    
+    System.out.println(testRegister.returnCash(30f)); //should be around $23 total, and change of around $7
     testRegister.saveOrderToFile();
+    
+    
   }
 }
